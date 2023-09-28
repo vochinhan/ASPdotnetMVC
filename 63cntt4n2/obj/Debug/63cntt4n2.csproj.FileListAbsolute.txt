@@ -77,3 +77,10 @@ C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\obj\Debug\6
 C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\obj\Debug\63cntt4n2.csproj.CopyComplete
 C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\obj\Debug\63cntt4n2.dll
 C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\obj\Debug\63cntt4n2.pdb
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\bin\EntityFramework.dll
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\bin\EntityFramework.SqlServer.dll
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\bin\EntityFramework.xml
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\bin\EntityFramework.SqlServer.xml
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\bin\MyClass.dll
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\bin\MyClass.pdb
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\63cntt4n2\bin\MyClass.dll.config

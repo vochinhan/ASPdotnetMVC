@@ -1,0 +1,12 @@
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\bin\Debug\MyClass.dll.config
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\bin\Debug\MyClass.dll
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\bin\Debug\MyClass.pdb
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\bin\Debug\EntityFramework.dll
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\bin\Debug\EntityFramework.xml
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\obj\Debug\MyClass.csproj.AssemblyReference.cache
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\obj\Debug\MyClass.csproj.CoreCompileInputs.cache
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\obj\Debug\MyClass.csproj.CopyComplete
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\obj\Debug\MyClass.dll
+C:\Users\ACER\MyDocuments\WebDev\ASPDotnetMVC\ASPdotnetMVC\MyClass\obj\Debug\MyClass.pdb
