@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using MyClass.Model;
 using MyClass.DAO;
+using UDW.Library;
+using System.Diagnostics;
 
 namespace _63cntt4n2.Areas.Admin.Controllers
 {
@@ -38,27 +40,57 @@ namespace _63cntt4n2.Areas.Admin.Controllers
             return View(categories);
         }
 
+        */
+        
         // GET: Admin/Categories/Create
         public ActionResult Create()
         {
+            ViewBag.CatList = new SelectList(categoriesDAO.getList("Index"),"Id","Name");
+            ViewBag.OrderList = new SelectList(categoriesDAO.getList("Index"), "Order", "Name");
             return View();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Slug,ParentId,Order,MetaDesc,MetaKey,CreatedBy,CreatedAt,UpdateBy,UpdateAt,Status")] Categories categories)
+        public ActionResult Create(Categories categories)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(categories);
-                db.SaveChanges();
+                //Xử lý tự động một số trường
+                // Create at
+                categories.CreatedAt = DateTime.Now;
+                // Update at
+                categories.UpdateAt = DateTime.Now;
+                //Create By
+                categories.CreatedBy = Convert.ToInt32(Session["UserID"]);
+                //Update By
+                categories.UpdateBy = Convert.ToInt32(Session["UserID"]);
+                //Slug
+                categories.Slug = XString.Str_Slug(categories.Name);
+                //ParentId
+                if (categories.ParentId == null)
+                {
+                    categories.ParentId = 0;
+                }
+                //Order
+                if (categories.Order == null)
+                {
+                    categories.Order = 1;
+                }
+                else
+                {
+                    categories.Order += 1;
+                }
+                //Thêm mới dòng dữ liệu
+                categoriesDAO.Insert(categories);
                 return RedirectToAction("Index");
             }
 
             return View(categories);
         }
 
+        /*
         // GET: Admin/Categories/Edit/5
         public ActionResult Edit(int? id)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,12 @@ namespace MyClass.DAO
                     break;
             }
             return list;
+        }
+
+        public int Insert(Categories row)
+        {
+            db.Categories.Add(row);
+            return db.SaveChanges();
         }
     }
 }
