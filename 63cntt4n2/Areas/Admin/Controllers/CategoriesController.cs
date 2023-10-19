@@ -10,6 +10,7 @@ using MyClass.Model;
 using MyClass.DAO;
 using UDW.Library;
 using System.Diagnostics;
+using _63cntt4n2.Library;
 
 namespace _63cntt4n2.Areas.Admin.Controllers
 {
@@ -24,7 +25,38 @@ namespace _63cntt4n2.Areas.Admin.Controllers
             return View(categoriesDAO.getList("Index"));
         }
 
-        /*
+        //Admin/Categories/Status
+        public ActionResult Status(int? id)
+        {
+            if (id == null)
+            {
+                //Thông báo thay đổi status thất bại
+                TempData["message"] = new XMessage("danger", "Thay đổi status thất bại!");
+                return RedirectToAction("Index");
+            }
+
+            Categories categories = categoriesDAO.getRow(id);
+            if (categories == null)
+            {
+                //Thông báo thay đổi thất bại
+                TempData["message"] = new XMessage("danger", "Thay đổi status thất bại!");
+                return RedirectToAction("Index");
+            }
+            //Cập nhật một số trường 
+            //Update at
+            categories.UpdateAt = DateTime.Now;
+            //Update By
+            categories.UpdateBy = Convert.ToInt32(Session["UserID"]);
+            //Status
+            categories.Status = (categories.Status == 1) ? 2 : 1;
+            //Update database
+            categoriesDAO.Update(categories);
+            //Thông báo thay đổi status thành công
+            TempData["message"] = new XMessage("success", "Thay đổi status thành công!");
+            return RedirectToAction("Index");
+        }
+
+
         // GET: Admin/Categories/Details/
         public ActionResult Details(int? id)
         {
@@ -32,7 +64,9 @@ namespace _63cntt4n2.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categories categories = db.Categories.Find(id);
+
+            Categories categories = categoriesDAO.getRow(id);
+
             if (categories == null)
             {
                 return HttpNotFound();
@@ -40,8 +74,8 @@ namespace _63cntt4n2.Areas.Admin.Controllers
             return View(categories);
         }
 
-        */
-        
+
+
         // GET: Admin/Categories/Create
         public ActionResult Create()
         {
@@ -79,30 +113,43 @@ namespace _63cntt4n2.Areas.Admin.Controllers
                     categories.Order = 1;
                 }
                 else
-                {
+                { 
                     categories.Order += 1;
                 }
                 //Thêm mới dòng dữ liệu
                 categoriesDAO.Insert(categories);
+
+                //Hiển thị thông báo thêm dữ liệu thành công
+                TempData["message"] = new XMessage("success","Thêm mới thành công!");
+
+
                 return RedirectToAction("Index");
             }
+
+            ViewBag.CatList = new SelectList(categoriesDAO.getList("Index"), "Id", "Name");
+            ViewBag.OrderList = new SelectList(categoriesDAO.getList("Index"), "Order", "Name");
 
             return View(categories);
         }
 
-        /*
         // GET: Admin/Categories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //Thông báo thay đổi thất bại
+                TempData["message"] = new XMessage("danger", "Cập nhật thất bại!");
+                return RedirectToAction("Index");
             }
-            Categories categories = db.Categories.Find(id);
+            Categories categories = categoriesDAO.getRow(id);
+
             if (categories == null)
             {
-                return HttpNotFound();
+                //Thông báo thay đổi thất bại
+                TempData["message"] = new XMessage("danger", "Cập nhật thất bại!");
+                return RedirectToAction("Index");
             }
+
             return View(categories);
         }
 
@@ -111,14 +158,40 @@ namespace _63cntt4n2.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Slug,ParentId,Order,MetaDesc,MetaKey,CreatedBy,CreatedAt,UpdateBy,UpdateAt,Status")] Categories categories)
+        public ActionResult Edit(Categories categories)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(categories).State = EntityState.Modified;
-                db.SaveChanges();
+                //Cập nhật một số trường
+                categories.Slug = XString.Str_Slug(categories.Name);
+                //ParentId
+                if (categories.ParentId == null)
+                {
+                    categories.ParentId = 0;
+                }
+                //Order
+                if (categories.Order == null)
+                {
+                    categories.Order = 1;
+                }
+                else
+                {
+                    categories.Order += 1;
+                }
+                //Update at
+                categories.UpdateAt = DateTime.Now;
+                //Update By
+                categories.UpdateBy = Convert.ToInt32(Session["UserID"]);
+
+                //Update database
+                categoriesDAO.Update(categories);
+
+                //Thông báo cập nhật thành công
+                TempData["message"] = new XMessage("success", "Cập nhật thành công!");
                 return RedirectToAction("Index");
             }
+            ViewBag.CatList = new SelectList(categoriesDAO.getList("Index"), "Id", "Name");
+            ViewBag.OrderList = new SelectList(categoriesDAO.getList("Index"), "Order", "Name");
             return View(categories);
         }
 
@@ -137,6 +210,7 @@ namespace _63cntt4n2.Areas.Admin.Controllers
             return View(categories);
         }
 
+        /*
         // POST: Admin/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

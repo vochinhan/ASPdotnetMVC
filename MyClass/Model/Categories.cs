@@ -33,7 +33,7 @@ namespace MyClass.Model
         [Display(Name = "Mô tả")]
         public string MetaDesc { get; set; }
 
-        [Required(ErrorMessage = "Từ khóa")]
+        [Required(ErrorMessage = "Từ khóa không được bỏ trống")]
         [Display(Name = "Từ khóa")]
         public string MetaKey { get; set; }
 

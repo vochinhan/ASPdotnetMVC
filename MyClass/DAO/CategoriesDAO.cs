@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,9 +39,24 @@ namespace MyClass.DAO
             return list;
         }
 
+
+        //Insert
         public int Insert(Categories row)
         {
             db.Categories.Add(row);
+            return db.SaveChanges();
+        }
+
+        //Get row
+        public Categories getRow(int? id)
+        {
+            if (id == null) return null;
+            else return db.Categories.Find(id);
+        }
+
+        public int Update(Categories row)
+        {
+            db.Entry(row).State = EntityState.Modified;
             return db.SaveChanges();
         }
     }
