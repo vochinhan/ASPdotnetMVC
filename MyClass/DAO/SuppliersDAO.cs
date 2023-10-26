@@ -1,39 +1,37 @@
-﻿using System;
+﻿using MyClass.Model;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyClass.Model;
 
 namespace MyClass.DAO
 {
-    public class CategoriesDAO
+    public class SuppliersDAO
     {
         private MyDBContext db = new MyDBContext();
 
         // INDEX = SELECT * FROM
 
-        public List<Categories> getList()
+        public List<Suppliers> getList()
         {
-            return db.Categories.ToList();
+            return db.Suppliers.ToList();
         }
 
-        public List<Categories> getList(string status = "All") //Status = 1,2: show; else hide
+        public List<Suppliers> getList(string status = "All") //Status = 1,2: show; else hide
         {
-            List<Categories> list = null;
+            List<Suppliers> list = null;
             switch (status)
             {
                 case "Index": //1, 2
-                    list = db.Categories.Where(m => m.Status != 0).ToList();
+                    list = db.Suppliers.Where(m => m.Status != 0).ToList();
                     break;
                 case "Trash": // 0
-                    list = db.Categories.Where(m => m.Status == 0).ToList();
+                    list = db.Suppliers.Where(m => m.Status == 0).ToList();
                     break;
                 default:
-                    list = db.Categories.ToList();
+                    list = db.Suppliers.ToList();
                     break;
             }
             return list;
@@ -41,29 +39,31 @@ namespace MyClass.DAO
 
 
         //Insert
-        public int Insert(Categories row)
+        public int Insert(Suppliers row)
         {
-            db.Categories.Add(row);
+            db.Suppliers.Add(row);
             return db.SaveChanges();
         }
 
         //Get row
-        public Categories getRow(int? id)
+        public Suppliers getRow(int? id)
         {
             if (id == null) return null;
-            else return db.Categories.Find(id);
+            else return db.Suppliers.Find(id);
         }
 
-        public int Update(Categories row)
+        public int Update(Suppliers row)
         {
             db.Entry(row).State = EntityState.Modified;
             return db.SaveChanges();
         }
 
-        public int Delete(Categories row)
+        public int Delete(Suppliers row)
         {
-            db.Categories.Remove(row);
+            db.Suppliers.Remove(row);
             return db.SaveChanges();
         }
+
+
     }
 }

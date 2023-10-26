@@ -62,14 +62,16 @@ namespace _63cntt4n2.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Index");
             }
 
             Categories categories = categoriesDAO.getRow(id);
 
             if (categories == null)
             {
-                return HttpNotFound();
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Index");
             }
             return View(categories);
         }
@@ -149,7 +151,8 @@ namespace _63cntt4n2.Areas.Admin.Controllers
                 TempData["message"] = new XMessage("danger", "Cập nhật thất bại!");
                 return RedirectToAction("Index");
             }
-
+            ViewBag.CatList = new SelectList(categoriesDAO.getList("Index"), "Id", "Name");
+            ViewBag.OrderList = new SelectList(categoriesDAO.getList("Index"), "Order", "Name");
             return View(categories);
         }
 
@@ -195,31 +198,103 @@ namespace _63cntt4n2.Areas.Admin.Controllers
             return View(categories);
         }
 
-        // GET: Admin/Categories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //Thông báo xóa thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Trash");
             }
-            Categories categories = db.Categories.Find(id);
+
+            Categories categories = categoriesDAO.getRow(id);
             if (categories == null)
             {
-                return HttpNotFound();
+                //Thông báo xóa thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Trash");
             }
+
             return View(categories);
         }
 
-        /*
-        // POST: Admin/Categories/Delete/5
+        //POST: Admin/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Categories categories = db.Categories.Find(id);
-            db.Categories.Remove(categories);
-            db.SaveChanges();
+            Categories categories = categoriesDAO.getRow(id);
+            categoriesDAO.Delete(categories);
+            TempData["message"] = new XMessage("success", "Xóa mẫu tin thành công!");
+            return RedirectToAction("Trash");
+        }
+
+        //Chuyển mẫu tin ở trạng thái status 1,2 thành 0 ( không hiển thị ở trang Index )
+        public ActionResult DelTrash(int? id)
+        {
+            if (id == null)
+            {
+                //Thông báo thay đổi status thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Index");
+            }
+
+            Categories categories = categoriesDAO.getRow(id);
+            if (categories == null)
+            {
+                //Thông báo thay đổi thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Index");
+            }
+            //Cập nhật một số trường 
+            //Update at
+            categories.UpdateAt = DateTime.Now;
+            //Update By
+            categories.UpdateBy = Convert.ToInt32(Session["UserID"]);
+            //Status
+            categories.Status = 0;
+            //Update database
+            categoriesDAO.Update(categories);
+            //Thông báo thay đổi status thành công
+            TempData["message"] = new XMessage("success", "Xóa mẫu tin thành công!");
             return RedirectToAction("Index");
-        }*/
+        }
+
+        public ActionResult Trash()
+        {
+            return View(categoriesDAO.getList("Trash"));
+        }
+
+        public ActionResult Undo(int? id)
+        {
+            if (id == null)
+            {
+                //Thông báo thay đổi status thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Trash");
+            }
+
+            Categories categories = categoriesDAO.getRow(id);
+            if (categories == null)
+            {
+                //Thông báo thay đổi thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Trash");
+            }
+            //Cập nhật một số trường 
+            //Update at
+            categories.UpdateAt = DateTime.Now;
+            //Update By
+            categories.UpdateBy = Convert.ToInt32(Session["UserID"]);
+            //Status
+            categories.Status = 2;
+            //Update database
+            categoriesDAO.Update(categories);
+            //Thông báo thay đổi status thành công
+            TempData["message"] = new XMessage("success", "Phục hồi mẫu tin thành công!");
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
