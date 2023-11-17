@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MyClass.Model.Suppliers>
 
 @{
-    ViewBag.Title = "Trang chủ nhà cung cấp";
+    ViewBag.Title = "Thùng rác";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -30,8 +30,7 @@
                             <strong class="text-danger">DANH MỤC NHÀ CUNG CẤP</strong>
                         </div>
                         <div class="col-md-6 text-right">
-                            <a href="@Url.Action("Create","Supplier")" class="btn-sm btn-success"><i class="fa fa-plus"> Thêm</i></a>
-                            <a href="@Url.Action("Trash","Supplier")" class="btn-sm btn-danger"><i class="fa fa-trash"> Thùng rác</i></a>
+                            <a href="@Url.Action("Index","Supplier")" class="btn-sm btn-success"><i class="fa fa-backward"> Trở về</i></a>
                         </div>
                     </div>
                 </div>
@@ -65,17 +64,8 @@
                                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                                     <td><img src="~/Public/img/supplier/@item.Img" alt="Img" class="img-fluid" /></td>
                                     <td>
-                                        @if (item.Status == 1)
-                                        {
-                                            <a href="@Url.Action("Status","Supplier", new { id = item.Id })" class="btn-sm btn-success"><i class="fa fa-toggle-on"></i></a>
-                                        }
-                                        else
-                                        {
-                                            <a href="@Url.Action("Status","Supplier", new { id = item.Id })" class="btn-sm btn-danger"><i class="fa fa-toggle-off"></i></a>
-                                        }
-                                        <a href="@Url.Action("Edit","Supplier", new { id = item.Id })" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                        <a href="@Url.Action("Details","Supplier", new { id = item.Id })" class="btn-sm btn-info"><i class="fa fa-eye"></i></a>
-                                        <a href="@Url.Action("DelTrash","Supplier", new { id = item.Id })" class="btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a href="@Url.Action("Undo","Supplier", new { id = item.Id })" class="btn-sm btn-info"><i class="fa fa-undo"></i></a>
+                                        <a href="@Url.Action("Delete","Supplier", new { id = item.Id })" class="btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             }

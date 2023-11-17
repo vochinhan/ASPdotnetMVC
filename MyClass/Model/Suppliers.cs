@@ -13,6 +13,7 @@ namespace MyClass.Model
     public class Suppliers
     {
         [Key]
+        [Display(Name = "Mã NCC")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Tên không được để trống")]
