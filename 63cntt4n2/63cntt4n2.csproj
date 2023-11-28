@@ -2693,7 +2693,7 @@
     <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Trash.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\Edit.cshtml" />

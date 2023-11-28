@@ -173,7 +173,7 @@
                                                 <td>@Html.DisplayFor(modelItem => item.Link)</td>
                                                 <td>@Html.DisplayFor(modelItem => item.TypeMenu)</td>
                                                 <td>@Html.DisplayFor(modelItem => item.Order)</td>
-                                                <td>
+                                                <td width="170px">
                                                     @if (item.Status == 1)
                                                     {
                                                         <a href="@Url.Action("Status","Menu", new { id = item.Id })" class="btn-sm btn-success"><i class="fa fa-toggle-on"></i></a>

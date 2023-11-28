@@ -1,4 +1,5 @@
 ﻿using MyClass.DAO;
+using MyClass.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,13 @@ namespace _63cntt4n2.Controllers
     public class ModuleController : Controller
     {
         MenusDAO menusDAO = new MenusDAO();
-        // GET: Module
-        public ActionResult Index()
+        public ActionResult MainMenu()
         {
-            return View();
-        }
+            var ls = new List<Menus>();
 
-        public PartialViewResult MainMenu()
-        {
-            return PartialView(menusDAO.getListByParentId(0));
+            ls = menusDAO.getListByParentId(0);
+
+            return View(ls);
         }
     }
 }

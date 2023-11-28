@@ -5,10 +5,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using _63cntt4n2.Library;
 using MyClass.DAO;
 using MyClass.Model;
+using UDW.Library;
 
 namespace _63cntt4n2.Areas.Admin.Controllers
 {
@@ -257,6 +260,22 @@ namespace _63cntt4n2.Areas.Admin.Controllers
         // GET: Admin/Menu/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.PositionList = new List<SelectListItem>
+            {
+                new SelectListItem {Value = "MainMenu", Text = "MainMenu"},
+                new SelectListItem {Value = "Footer", Text = "Footer"}
+            };
+
+            ViewBag.TypeMenuList = new List<SelectListItem>
+            {
+                new SelectListItem {Value = "category", Text = "category"},
+                new SelectListItem {Value = "product", Text = "product"},
+                new SelectListItem {Value = "supplier", Text = "supplier"},
+                new SelectListItem {Value = "custom", Text = "custom"}
+            };
+
+            ViewBag.ParentIDList = new SelectList(menusDAO.getList("Index"), "Id", "Name");
+            ViewBag.OrderList = new SelectList(menusDAO.getList("Index"), "Order", "Name");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -269,43 +288,123 @@ namespace _63cntt4n2.Areas.Admin.Controllers
             return View(menus);
         }
 
-        // POST: Admin/Menu/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,TableID,TypeMenu,Position,Link,ParentID,Order,CreateAt,CreateBy,UpdateAt,UpdateBy,Status")] Menus menus)
-        {
-            if (ModelState.IsValid)
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Edit(Menus menus)
             {
-                menusDAO.Update(menus);
-                return RedirectToAction("Index");
-            }
-            return View(menus);
-        }
+                if (ModelState.IsValid)
+                {
+                    //Update tu dong 1 so truong 
 
-        // GET: Admin/Menu/Delete/5
+                    if (menus.TypeMenu != "custom")
+                        menus.Link = XString.Str_Slug(menus.Name);
+                    menus.ParentId = 0;
+                    menus.UpdateAt = DateTime.Now;
+                    menus.UpdateBy = Convert.ToInt32(Session["UserID"].ToString());
+
+                    menusDAO.Update(menus);
+                    TempData["message"] = new XMessage("success", "Chỉnh sửa menu thành công");
+                    return RedirectToAction("Index");
+                }
+
+                TempData["message"] = new XMessage("danger", "Chỉnh sửa menu thất bại");
+                return View(menus);
+            }
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //Thông báo xóa thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Trash");
             }
+
             Menus menus = menusDAO.getRow(id);
             if (menus == null)
             {
-                return HttpNotFound();
+                //Thông báo xóa thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Trash");
             }
+
             return View(menus);
         }
 
-        // POST: Admin/Menu/Delete/5
+        //POST: Admin/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Menus menus = menusDAO.getRow(id);
             menusDAO.Delete(menus);
+            TempData["message"] = new XMessage("success", "Xóa mẫu tin thành công!");
+            return RedirectToAction("Trash");
+        }
+
+        //Chuyển mẫu tin ở trạng thái status 1,2 thành 0 ( không hiển thị ở trang Index )
+        public ActionResult DelTrash(int? id)
+        {
+            if (id == null)
+            {
+                //Thông báo thay đổi status thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Index");
+            }
+
+            Menus menus= menusDAO.getRow(id);
+            if (menus == null)
+            {
+                //Thông báo thay đổi thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Index");
+            }
+            //Cập nhật một số trường 
+            //Update at
+            menus.UpdateAt = DateTime.Now;
+            //Update By
+            menus.UpdateBy = Convert.ToInt32(Session["UserID"]);
+            //Status
+            menus.Status = 0;
+            //Update database
+            menusDAO.Update(menus);
+            //Thông báo thay đổi status thành công
+            TempData["message"] = new XMessage("success", "Xóa mẫu tin thành công!");
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Trash()
+        {
+            return View(menusDAO.getList("Trash"));
+        }
+
+        public ActionResult Undo(int? id)
+        {
+            if (id == null)
+            {
+                //Thông báo thay đổi status thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Trash");
+            }
+
+            Menus menus = menusDAO.getRow(id);
+            if (menus == null)
+            {
+                //Thông báo thay đổi thất bại
+                TempData["message"] = new XMessage("danger", "Không tìm thấy mẫu tin!");
+                return RedirectToAction("Trash");
+            }
+            //Cập nhật một số trường 
+            //Update at
+            menus.UpdateAt = DateTime.Now;
+            //Update By
+            menus.UpdateBy = Convert.ToInt32(Session["UserID"]);
+            //Status
+            menus.Status = 2;
+            //Update database
+            menusDAO.Update(menus);
+            //Thông báo thay đổi status thành công
+            TempData["message"] = new XMessage("success", "Phục hồi mẫu tin thành công!");
             return RedirectToAction("Index");
         }
     }

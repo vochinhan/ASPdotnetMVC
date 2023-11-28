@@ -20,9 +20,7 @@ namespace MyClass.DAO
 
         public List<Menus> getListByParentId(int parentid = 0)
         {
-            return db.Menus
-                .Where(m => m.ParentId == parentid && m.Status == 1)
-                .ToList();
+            return db.Menus.Where(m => m.ParentId == parentid && m.Status == 1).ToList();
         }
 
         //Index chi voi staus 1,2        
