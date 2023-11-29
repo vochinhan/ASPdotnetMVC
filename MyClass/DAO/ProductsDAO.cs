@@ -38,6 +38,13 @@ namespace MyClass.DAO
                             .ToList();
                         break;
                     }
+                case "Avail":
+                    {
+                        list = db.Products
+                            .Where(m => m.Status == 1)
+                            .ToList();
+                        break;
+                    }
                 default:
                     {
                         list = db.Products.ToList();

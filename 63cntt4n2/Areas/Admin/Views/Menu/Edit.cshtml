@@ -13,6 +13,11 @@
     @Html.HiddenFor(model => model.CreatedAt)
     @Html.HiddenFor(model => model.CreatedBy)
     @Html.HiddenFor(model => model.Status)
+
+    if (Model.TypeMenu != "custom")
+    {
+        @Html.HiddenFor(model => model.Link);
+    }
     <div class="wrapper">
         <!-- Main Sidebar Container -->
         <!-- Content Wrapper. Contains page content -->
@@ -43,13 +48,16 @@
                                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                                @if (Model.TypeMenu == "custom")
+                                {
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-                                </div>
+                                }
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label" })
                                     <div class="col-md-10">

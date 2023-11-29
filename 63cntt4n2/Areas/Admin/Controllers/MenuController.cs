@@ -51,7 +51,7 @@ namespace _63cntt4n2.Areas.Admin.Controllers
                         //ta ra menu
                         Menus menu = new Menus();
                         menu.Name = categories.Name;
-                        menu.Link = categories.Slug;
+                        menu.Link = categories.Id.ToString();
                         menu.TypeMenu = "category";
                         menu.Position = form["Position"];
                         menu.ParentId = 0;
@@ -89,7 +89,7 @@ namespace _63cntt4n2.Areas.Admin.Controllers
                         //ta ra menu
                         Menus menu = new Menus();
                         menu.Name = suppliers.Name;
-                        menu.Link = suppliers.Slug;
+                        menu.Link = suppliers.Id.ToString();
                         menu.TypeMenu = "supplier";
                         menu.Position = form["Position"];
                         menu.ParentId = 0;
@@ -127,7 +127,7 @@ namespace _63cntt4n2.Areas.Admin.Controllers
                         //ta ra menu
                         Menus menu = new Menus();
                         menu.Name = products.Name;
-                        menu.Link = products.Slug;
+                        menu.Link = (products.Id).ToString();
                         menu.TypeMenu = "product";
                         menu.Position = form["Position"];
                         menu.ParentId = 0;
@@ -297,7 +297,7 @@ namespace _63cntt4n2.Areas.Admin.Controllers
                     //Update tu dong 1 so truong 
 
                     if (menus.TypeMenu != "custom")
-                        menus.Link = XString.Str_Slug(menus.Name);
+                    menus.Link = productsDAO.getRow(menus.Id).Id.ToString(); ///////////////////////////
                     menus.ParentId = 0;
                     menus.UpdateAt = DateTime.Now;
                     menus.UpdateBy = Convert.ToInt32(Session["UserID"].ToString());

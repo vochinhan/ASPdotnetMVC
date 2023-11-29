@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand logo_h" href="index.html"><img src="~/Public/img/logo.png" alt=""></a>
+        <a class="navbar-brand logo_h" href="@Url.Action("Index", "Site")"><img src="~/Public/img/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -11,11 +11,9 @@
         </button>
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-                @*Trang chu*@
-                <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index", "Site")">TRANG CHỦ</a></li>
                 @*Loai San pham*@
                 <li class="nav-item submenu dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    <a href=""@Url.Action("ShopCategory", "Site")" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">LOẠI SẢN PHẨM</a>
                     <ul class="dropdown-menu">
                         @*bat dau tu cho nay*@
@@ -60,7 +58,7 @@
                             if (item.TypeMenu == "product")
                             {
                                 <li class="nav-item active">
-                                    <a class="nav-link text-uppercase active" href="@item.Link">@item.Name</a>
+                                    <a class="nav-link text-uppercase active" href="@Url.Action("ProductDetails", "Site", new { id = item.Link })">@item.Name</a>
                                 </li>
                             }
 
@@ -73,8 +71,14 @@
                 {
                     if (item.TypeMenu == "custom")
                     {
-                        <li class="nav-item active">
-                            <a class="nav-link text-uppercase active" href="@item.Link">@item.Name</a>
+                        List<string> link = item.Link.Split(',').ToList();
+                        if (link.Count() != 2)
+                        {
+                            link.Add("Index");
+                            link.Add("Site");
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" href="@Url.Action(link[0], link[1])">@item.Name</a>
                         </li>
                     }
 
@@ -85,8 +89,8 @@
 
             <ul class="nav-shop">
                 <li class="nav-item"><button><i class="ti-search"></i></button></li>
-                <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
-                <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li>
+                <li class="nav-item"><a href="/Site/Cart"><i class="ti-shopping-cart"></i><span class="nav-shop__circle">@ViewBag.CartQty</span></a> </li>
+                <li class="nav-item"><a class="button button-header" href="@Url.Action("ShopCategory","Site")">Buy Now</a></li>
             </ul>
         </div>
     </div>
