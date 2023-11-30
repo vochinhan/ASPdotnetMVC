@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
                 @*Loai San pham*@
                 <li class="nav-item submenu dropdown">
-                    <a href=""@Url.Action("ShopCategory", "Site")" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    <a href="@Url.Action("ShopCategory", "Site")" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">LOẠI SẢN PHẨM</a>
                     <ul class="dropdown-menu">
                         @*bat dau tu cho nay*@
@@ -22,7 +22,7 @@
                             if (item.TypeMenu == "category")
                             {
                                 <li class="nav-item active">
-                                    <a class="nav-link text-uppercase active" href="@item.Link">@item.Name</a>
+                                    <a class="nav-link text-uppercase active" href="@Url.Action("ShopCategory", "Site", new { category = item.Link })">@item.Name</a>
                                 </li>
                             }
 
@@ -40,7 +40,7 @@
                             if (item.TypeMenu == "supplier")
                             {
                                 <li class="nav-item active">
-                                    <a class="nav-link text-uppercase active" href="@item.Link">@item.Name</a>
+                                    <a class="nav-link text-uppercase active" href="@Url.Action("ShopCategory", "Site", new { supplier = item.Link })">@item.Name</a>
                                 </li>
                             }
 

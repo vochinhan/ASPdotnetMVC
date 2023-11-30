@@ -32,6 +32,13 @@ namespace MyClass.DAO
                 case "Trash": // 0
                     list = db.Categories.Where(m => m.Status == 0).ToList();
                     break;
+                case "Avail":
+                    {
+                        list = db.Categories
+                            .Where(m => m.Status == 1)
+                            .ToList();
+                        break;
+                    }
                 default:
                     list = db.Categories.ToList();
                     break;

@@ -139,6 +139,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Library\VietnameseAccentRemove.cs" />
     <Compile Include="Library\XMessage.cs" />
     <Compile Include="Library\XString.cs" />
     <Compile Include="Models\FilterFactor.cs" />
@@ -2735,6 +2736,7 @@
     <Content Include="Views\Site\ShopCategory.cshtml" />
     <Content Include="Views\Site\TopProducts.cshtml" />
     <Content Include="Views\Site\SmallProductItem.cshtml" />
+    <Content Include="Views\Site\HomeProductItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

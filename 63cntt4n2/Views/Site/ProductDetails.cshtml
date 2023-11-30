@@ -32,12 +32,12 @@
                         <div class="single-prd-item">
                             <img class="img-fluid" src="~/Public/img/product/@Model.Img" alt="">
                         </div>
-                        <!-- <div class="single-prd-item">
+                        @*<div class="single-prd-item">
                             <img class="img-fluid" src="~/Public/img/category/s-p1.jpg" alt="">
                         </div>
                         <div class="single-prd-item">
                             <img class="img-fluid" src="~/Public/img/category/s-p1.jpg" alt="">
-                        </div> -->
+                        </div>*@
                     </div>
                 </div>
                 @using (Html.BeginForm("AddToCart", "Site", FormMethod.Post, new {@class = "col-lg-5 offset-lg-1" }))
@@ -434,7 +434,7 @@
     </section>
     <!--================End Product Description Area =================-->
     <!--================ Start related Product area =================-->
-    @Html.Action("RelatedProducts","Site", new {id = Model.Id, cate = Model.Supplier })
+    @Html.Action("RelatedProducts","Site", new {id = Model.Id, cate = Model.CatID, supplier = Model.Supplier })
     <!--================ end related Product area =================-->
     
 </body>

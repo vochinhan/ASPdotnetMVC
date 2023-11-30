@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/Public/vendors/nouislider/nouislider.min.css">
 </head>
 <!-- ================ start banner area ================= -->
-@using (Html.BeginForm())
+@using (Html.BeginForm("ShopCategory", "Site", FormMethod.Get, new { id = "MainForm" }))
 {
     <section class="blog-banner-area" id="category">
         <div class="container h-100">
@@ -34,17 +34,15 @@
                         <div class="head">Browse Categories</div>
                         <ul class="main-categories">
                             <li class="common-filter">
-                                <form action="#">
+                                <div>
                                     <ul>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">Men<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">Women<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="brand"><label for="accessories">Accessories<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="brand"><label for="footwear">Footwear<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="brand"><label for="bayItem">Bay item<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="brand"><label for="electronics">Electronics<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="food" name="brand"><label for="food">Food<span> (3600)</span></label></li>
+                                        <li class="filter-list"><input onchange="submitForm()" class="pixel-radio" type="radio" id="all" value="-1" name="category" @(-1 == int.Parse(ViewBag.CategoryOption) ? "checked" : "")><label for="-1">Tất cả<span> (@Html.Action("CategoryQty", "Site", new { id = "all" }))</span></label></li>
+                                        @foreach (var item in ViewBag.CatList)
+                                        {
+                                            <li class="filter-list"><input onchange="submitForm()" class="pixel-radio" type="radio" id="@item.Id" value="@item.Id" name="category" @(item.Id == int.Parse(ViewBag.CategoryOption) ? "checked" : "")><label for="@item.Id">@item.Name<span> (@Html.Action("CategoryQty", "Site", new { id = item.Id }))</span></label></li>
+                                        }
                                     </ul>
-                                </form>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -52,37 +50,15 @@
                         <div class="top-filter-head">Product Filters</div>
                         <div class="common-filter">
                             <div class="head">Brands</div>
-                            <form action="#">
+                            <div>
                                 <ul>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+                                    <li class="filter-list"><input onchange="submitForm()" class="pixel-radio" type="radio" id="all" value="-1" name="supplier" @(-1 == int.Parse(ViewBag.SupplierOption) ? "checked" : "")><label for="-1">Tất cả<span> (@Html.Action("CategoryQty", "Site", new { id = "all" }))</span></label></li>
+                                    @foreach (var item in ViewBag.SupplierList)
+                                    {
+                                        <li class="filter-list"><input onchange="submitForm()" class="pixel-radio" type="radio" id="@item.Id" value="@item.Id" name="supplier" @(item.Id == int.Parse(ViewBag.SupplierOption) ? "checked" : "")><label for="@item.Id">@item.Name<span> (@Html.Action("SupplierQty", "Site", new { id = item.Id }))</span></label></li>
+                                    }
                                 </ul>
-                            </form>
-                        </div>
-                        <div class="common-filter">
-                            <div class="head">Color</div>
-                            <form action="#">
-                                <ul>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-                                    <li class="filter-list">
-                                        <input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">
-                                            Black
-                                            Leather<span>(29)</span>
-                                        </label>
-                                    </li>
-                                    <li class="filter-list">
-                                        <input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">
-                                            Black
-                                            with red<span>(19)</span>
-                                        </label>
-                                    </li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
-                                </ul>
-                            </form>
+                            </div>
                         </div>
                         <div class="common-filter">
                             <div class="head">Price</div>
@@ -97,29 +73,38 @@
                                     <div id="upper-value"></div>
                                 </div>
                             </div>
+                            <div class="d-flex justify-content-center"><input type="submit" class="button button--active mt-3 mt-xl-4 " value="Apply" /></div>
+                            
                         </div>
                     </div>
                 </div>
+                <input type="text" id="lower-price" name="lowerprice" value="" style="display: none;" />
+                <input type="text" id="upper-price" name="upperprice" value="" style="display: none;" />
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <!-- Start Filter Bar -->
                     <div class="filter-bar d-flex flex-wrap align-items-center">
                         <div class="sorting">
-                            <select>
-                                <option value="1">Default sorting</option>
-                                <option value="1">Default sorting</option>
-                                <option value="1">Default sorting</option>
+                            <select name="sort" onchange="submitForm()">
+                                @foreach (var item in ViewBag.SortType)
+                                {
+
+                                    <option value="@item.Value" @(ViewBag.sortOption == item.Value ? "selected" : "")>@item.Name</option>
+                                }
+
                             </select>
                         </div>
                         <div class="sorting mr-auto">
-                            <select>
-                                <option value="1">Show 12</option>
-                                <option value="1">Show 12</option>
-                                <option value="1">Show 12</option>
+                            <select name="recommend" onchange="submitForm()">
+                                @foreach (var item in ViewBag.RecommendType)
+                                {
+
+                                    <option value="@item.Value" @(ViewBag.recommendOption == item.Value ? "selected" : "")>@item.Name</option>
+                                }
                             </select>
                         </div>
                         <div>
                             <div class="input-group filter-bar-search">
-                                <input type="text" placeholder="Search">
+                                <input type="text" placeholder="Search" name="search" value="@ViewBag.search">
                                 <div class="input-group-append">
                                     <button type="button"><i class="ti-search"></i></button>
                                 </div>
@@ -142,9 +127,17 @@
         </div>
     </section>
 }
-    <!-- ================ category section end ================= -->
-    <!-- ================ top product area start ================= -->
-        @Html.Action("TopProducts","Site")
+<!-- ================ Form auto submit ================= -->
+<script>
+    window.lowerprice = @ViewBag.lowerprice;
+    window.upperprice = @ViewBag.upperprice;
+    function submitForm() {
+        document.getElementById("MainForm").submit();
+    }
+</script>
+<!-- ================ category section end ================= -->
+<!-- ================ top product area start ================= -->
+@Html.Action("TopProducts", "Site")
 
 <!-- ================ top product area end ================= -->
 <!-- ================ Subscribe section start ================= -->
@@ -172,5 +165,5 @@
 </section>
 <!-- ================ Subscribe section end ================= -->
 
-    <script src="~/Public/vendors/nouislider/nouislider.min.js"></script>
+<script src="~/Public/vendors/nouislider/nouislider.min.js"></script>
 <!--================ End footer Area  =================-->
