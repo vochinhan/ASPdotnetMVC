@@ -48,7 +48,7 @@
                                 <th>@Html.DisplayNameFor(model => model.Price)</th>
                                 <th>@Html.DisplayNameFor(model => model.Qty)</th>
                                 <th>@Html.DisplayNameFor(model => model.Img)</th>
-                                <th>Chức năng</th>
+                                <th style="width: 200px;">Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +62,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.Supplier)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Price)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Qty)</td>
-                                    <td><img src="~/Public/img/product/@item.Img" alt="Img" class="img-fluid" /></td>
+                                    <td><img width="200px" src="~/Public/img/product/@item.Img" alt="Img" class="img-fluid" /></td>
                                     <td>
                                         @if (item.Status == 1)
                                         {

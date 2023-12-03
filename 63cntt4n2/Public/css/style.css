@@ -416,14 +416,14 @@ a {
         color: #222
     }
 
-    .nav-shop li button {
+    .nav-shop li a {
         padding: 0;
         border: 0;
         background: transparent;
         position: relative
     }
 
-        .nav-shop li button .nav-shop__circle {
+        .nav-shop li a .nav-shop__circle {
             font-size: 9px;
             display: inline-block;
             background: #384aeb;
@@ -917,20 +917,20 @@ a {
         display: inline-block
     }
 
-        .card-product__imgOverlay li button {
+        .card-product__imgOverlay li a {
             border: 0;
             border-radius: 0;
             padding: 7px 12px;
             background: #8894ff
         }
 
-            .card-product__imgOverlay li button i, .card-product__imgOverlay li button span {
+            .card-product__imgOverlay li a i, .card-product__imgOverlay li a span {
                 font-size: 15px;
                 color: #fff;
                 vertical-align: middle
             }
 
-            .card-product__imgOverlay li button:hover {
+            .card-product__imgOverlay li a:hover {
                 background: #384aeb
             }
 
@@ -4590,7 +4590,7 @@ a {
                 position: absolute;
                 right: 0px;
                 top: 14px;
-                @icnlude transition
+                @icnlude transition;
             }
 
                 .review_item .media .media-body .reply_btn:hover {

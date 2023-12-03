@@ -1,0 +1,164 @@
+﻿@model List<_63cntt4n2.Models.CartItem>
+@{
+    ViewBag.Title = "OrderConfirmation";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<!-- ================ start banner area ================= -->
+<section class="blog-banner-area" id="category">
+    <div class="container h-100">
+        <div class="blog-banner">
+            <div class="text-center">
+                <h1>Order Confirmation</h1>
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Shop Category</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end banner area ================= -->
+<!--================Order Details Area =================-->
+<section class="order_details section-margin--small">
+    <div class="container">
+        <p class="text-center billing-alert">Thank you. Your order has been received.</p>
+        <div class="row mb-5">
+            <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+                <div class="confirmation-card">
+                    <h3 class="billing-title">Order Info</h3>
+                    <table class="order-rable">
+                        <tr>
+                            <td>Number</td>
+                            <td>: @ViewBag.OrderId</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>: @ViewBag.Date</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>: @ViewBag.FinalTotal</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+                <div class="confirmation-card">
+                    <h3 class="billing-title">Billing Address</h3>
+                    <table class="order-rable">
+                        <tr>
+                            <td>First Name</td>
+                            <td>@ViewBag.BillingFirstName</td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td>@ViewBag.BillingLastName</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>@ViewBag.BillingAddress</td>
+                        </tr>
+                        <tr>
+                            <td>Phone Number</td>
+                            <td>@ViewBag.BillingPhone</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+                <div class="confirmation-card">
+                    <h3 class="billing-title">Shipping Address</h3>
+                    <table class="order-rable">
+                        <tr>
+                            <td>First Name</td>
+                            <td>@ViewBag.ShippingFirstName</td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td>@ViewBag.ShippingLastName</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>@ViewBag.ShippingAddress</td>
+                        </tr>
+                        <tr>
+                            <td>Phone Number</td>
+                            <td>@ViewBag.ShippingPhone</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="order_details_table">
+            <h2>Order Details</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var ls = Model;
+                        }
+                        @for (int i = 0; i < ls.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    <p>@ViewBag.NameList[i]</p>
+                                </td>
+                                <td>
+                                    <h5>x @ls[i].qty</h5>
+                                </td>
+                                <td>
+                                    <p>$@ViewBag.TotalList[i]</p>
+                                </td>
+                            </tr>
+                        }
+                        
+                        <tr>
+                            <td>
+                                <h4>Subtotal</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p>$ @ViewBag.SubTotal</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Shipping</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p>Flat rate: $@ViewBag.Ship</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Total</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <h4>$@ViewBag.FinalTotal</h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Order Details Area =================-->

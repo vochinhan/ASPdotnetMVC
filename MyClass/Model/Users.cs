@@ -34,7 +34,7 @@ namespace MyClass.Model
 
         public string Role { get; set; }
 
-        public int Genter { get; set; }
+        public int? Gender { get; set; }
 
         public string Address { get; set; }
 

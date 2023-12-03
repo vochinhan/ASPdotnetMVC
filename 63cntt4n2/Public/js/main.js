@@ -120,6 +120,21 @@ $(function () {
 
     }
 
+    //Prevent any form from refreshing the page
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var forms = document.getElementsByClassName('productItemForm');
+        for (var i = 0; i < forms.length; i++) {
+            forms[i].addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Perform any necessary processing or validation
+
+                // Optionally, you can use AJAX to submit the form data asynchronously
+            });
+        }
+    });
+
 });
 
 

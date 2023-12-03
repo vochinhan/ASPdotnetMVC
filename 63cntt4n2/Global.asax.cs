@@ -1,4 +1,6 @@
-﻿using System;
+﻿using _63cntt4n2.Models;
+using MyClass.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,7 +22,8 @@ namespace _63cntt4n2
 
         protected void Session_Start()
         {
-            Session["UserID"] = "1";
+            Session["Cart"] = new List<CartItem>();
+            Session["UserID"] = "-1"; //-1 : Not Logged In; != 1 : Logged In 
         }
     }
 }

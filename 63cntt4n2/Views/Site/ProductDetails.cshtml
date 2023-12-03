@@ -40,10 +40,10 @@
                         </div>*@
                     </div>
                 </div>
-                @using (Html.BeginForm("AddToCart", "Site", FormMethod.Post, new {@class = "col-lg-5 offset-lg-1" }))
+                @using (Html.BeginForm("AddAtDetail", "Cart", FormMethod.Get, new {@class = "col-lg-5 offset-lg-1" }))
                 {
                     @Html.AntiForgeryToken()
-                    <input style="display: none;" name="productId" value="@Model.Id" />
+                    <input style="display: none;" name="id" value="@Model.Id" />
                         <div class="s_product_text">
                             <h3>@Model.Name</h3>
                             <h2>$ @Model.PriceSale</h2>
@@ -57,7 +57,7 @@
                             <div class="d-flex justify-content-between">
                                 <label for="qty">Quantity:</label>
                                 <div class="row" style="width: 150px; line-height: 40px; height: 20px;">
-                                    <button style="width: 16px; padding: 0px; border: none;" onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                    <button style="width: 16px; padding: 0px; border: none;" onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp; sst > 0 ) result.value--;return false;"
                                             class="col-3" type="button">
                                         <i class="ti-angle-left"></i>
                                     </button>
@@ -74,7 +74,7 @@
                                         }
                                     </script>
                                 </div>
-                                <a type="submit" class="button primary-btn" href="/Site/AddToCart">Add to Cart</a>
+                                <button type="submit" class="button primary-btn">Add to Cart</button>
                             </div>
                             <div class="card_area d-flex align-items-center">
                                 <a class="icon_btn" href="#"><i class="fa fa-thumbs-up"></i></a>

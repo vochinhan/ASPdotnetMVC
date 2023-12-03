@@ -67,7 +67,7 @@
                     {
                         <div class="col-md-6 col-lg-4 col-xl-3">
                             @{var item = trending.ElementAt(i);
-                                Html.RenderAction("HomeProductItem", "Site", new { model = item });
+                                Html.RenderAction("ProductItem", "Site", new { model = item });
                             }
                         </div>
                     }
@@ -103,7 +103,7 @@
                     @for (int i = 0; i < 8; i++)
                     {
                         var item = top.ElementAt(i);
-                        Html.RenderAction("HomeProductItem", "Site", new { model = item });
+                        Html.RenderAction("ProductItem", "Site", new { model = item });
 
                     }
                 </div>

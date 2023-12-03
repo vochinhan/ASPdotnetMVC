@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,24 +14,24 @@ namespace MyClass.DAO
     {
         private MyDBContext db = new MyDBContext();
 
-        public List<Categories> getList()
+        public List<Orders> getList()
         {
-            return db.Categories.ToList();
+            return db.Orders.ToList();
         }
 
-        public List<Categories> getList(string status = "All") //Status = 1,2: show; else hide
+        public List<Orders> getList(string status = "All") //Status = 1,2: show; else hide
         {
-            List<Categories> list = null;
+            List<Orders> list = null;
             switch (status)
             {
                 case "Index": //1, 2
-                    list = db.Categories.Where(m => m.Status != 0).ToList();
+                    list = db.Orders.Where(m => m.Status != 0).ToList();
                     break;
                 case "Trash": // 0
-                    list = db.Categories.Where(m => m.Status == 0).ToList();
+                    list = db.Orders.Where(m => m.Status == 0).ToList();
                     break;
                 default:
-                    list = db.Categories.ToList();
+                    list = db.Orders.ToList();
                     break;
             }
             return list;
@@ -37,28 +39,28 @@ namespace MyClass.DAO
 
 
         //Insert
-        public int Insert(Categories row)
+        public int Insert(Orders row)
         {
-            db.Categories.Add(row);
+            db.Orders.Add(row);
             return db.SaveChanges();
         }
 
         //Get row
-        public Categories getRow(int? id)
+        public Orders getRow(int? id)
         {
             if (id == null) return null;
-            else return db.Categories.Find(id);
+            else return db.Orders.Find(id);
         }
 
-        public int Update(Categories row)
+        public int Update(Orders row)
         {
             db.Entry(row).State = EntityState.Modified;
             return db.SaveChanges();
         }
 
-        public int Delete(Categories row)
+        public int Delete(Orders row)
         {
-            db.Categories.Remove(row);
+            db.Orders.Remove(row);
             return db.SaveChanges();
         }
     }

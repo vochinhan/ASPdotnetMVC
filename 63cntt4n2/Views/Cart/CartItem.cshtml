@@ -1,0 +1,40 @@
+﻿@model MyClass.Model.Products
+
+@{
+    var groupId = "group_" + Model.Id;
+}
+
+<tr class="cartitem" data-group="@groupId">
+    <td>
+        <div class="media">
+            <div class="d-flex">
+                <img width="200px" src="~/Public/img/product/@Model.Img" alt="">
+            </div>
+            <div class="media-body">
+                <p>@Model.MetaDesc</p>
+            </div>
+        </div>
+    </td>
+    <td>
+        <h5 class="pricediv">$@Model.PriceSale</h5>
+    </td>
+    <td>
+        <div class="product_count">
+            <input type="text" name="quantity[]" class="quantityInput" maxlength="12" value="@ViewBag.SellQty" title="Quantity:" onchange="calculateTotalPrice('@groupId', this)">
+            <button onclick="increaseQuantity('@groupId', this)" class="increase items-count" type="button">
+                <i class="ti-angle-up"></i>
+            </button>
+            <button onclick="decreaseQuantity('@groupId', this)" class="reduced items-count" type="button">
+                <i class="ti-angle-down"></i>
+            </button>
+        </div>
+    </td>
+    <td>
+        <h5 class="displayTotalPrice" id="displayTotalPrice_@groupId"></h5>
+        <input style="display: none;" type="number" name="totalPrice[]" class="totalPriceInput" value="" readonly />
+    </td>
+</tr>
+<script>
+    document.getElementById("displayTotalPrice_@groupId").innerHTML = "$" + @Model.PriceSale * @ViewBag.SellQty + ".00";
+    (document.getElementById("displayTotalPrice_@groupId").nextElementSibling).value =  @Model.PriceSale * @ViewBag.SellQty;
+</script>

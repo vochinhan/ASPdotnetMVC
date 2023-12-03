@@ -27,11 +27,12 @@ namespace MyClass.Model
 
         public string Note { get; set; }
 
+        [Required]
         public DateTime CreatedAt { get; set; }
 
-        public int UpdateBy { get; set; }
+        public int? UpdateBy { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime? UpdateAt { get; set; }
 
         public int Status { get; set; }
 

@@ -1,0 +1,97 @@
+﻿@model List<_63cntt4n2.Models.CartItem>
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<!-- ================ start banner area ================= -->
+<section class="blog-banner-area" id="category">
+    <div class="container h-100">
+        <div class="blog-banner">
+            <div class="text-center">
+                <h1>Product Checkout</h1>
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class=" breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end banner area ================= -->
+<!--================Checkout Area =================-->
+<section class="checkout_area section-margin--small">
+    <div class="container">
+        @using (Html.BeginForm("OrderConfirmation", "Cart", FormMethod.Post, new { @class = "billing_details" }))
+        {
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Billing Details</h3>
+                    <div class="row contact_form" novalidate="novalidate">
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="first" name="billingfirstname" placeholder="First Name">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="last" name="billinglastname" placeholder="Last Name">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="number" name="billingphone" placeholder="Phone Number">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email Address">
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" id="add1" name="billingaddress" placeholder="Address">
+                        </div>
+                    </div>
+                    <h3>Shipping Details</h3>
+                    <div class="row contact_form" novalidate="novalidate">
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="first" name="shippingfirstname" placeholder="First Name">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="last" name="shippinglastname" placeholder="Last Name">
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" id="add1" name="shippingaddress" placeholder="Address">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="number" name="shippingphone" placeholder="Phone Number">
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            <textarea class="form-control" name="note" id="message" rows="1" placeholder="Order Notes"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="order_box">
+                        <h2>Your Order</h2>
+                        <ul class="list">
+                            <li><a href="#"><h4>Product <span>Total</span></h4></a></li>
+                            @{
+                                var ls = Model;
+                            }
+                            @for (int i = 0; i < ls.Count(); i++)
+                            {
+                                <li><a href="@Url.Action("ProductDetails", "Site", new {id = ls[i].productId })">@ViewBag.NameList[i] <span class="middle">x @ls[i].qty</span> <span class="last">$@ViewBag.TotalList[i]</span></a></li>
+                            }
+                        </ul>
+                        <ul class="list list_2">
+
+                            <li><a href="#">Subtotal <span>$@ViewBag.SubTotal</span></a></li>
+                            <li><a href="#">Shipping <span>$@ViewBag.Ship</span></a></li>
+                            <li><a href="#">Total <span>$@ViewBag.FinalTotal</span></a></li>
+                        </ul>
+                        <div class="text-center">
+                            <button class="button button-paypal" type="submit">Proceed to Paypal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+

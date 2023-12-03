@@ -17,7 +17,14 @@ namespace _63cntt4n2.Controllers
             var ls = new List<Menus>();
 
             ls = menusDAO.getListByParentId(0);
-
+            if (Session["UserID"].ToString() == "-1")
+            {
+                ViewBag.LoggedIn = false;
+            }
+            else
+            {
+                ViewBag.LoggedIn = true;
+            }
             return View(ls);
         }
 

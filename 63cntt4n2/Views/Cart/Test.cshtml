@@ -1,0 +1,11 @@
+﻿@model List<_63cntt4n2.Models.CartItem>
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+@foreach (var item in Model)
+            {
+                <p>@item.productId -------------- @item.qty</p>
+            }
+
